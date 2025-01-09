@@ -11,6 +11,6 @@ export const Product = model('Product', new Schema({
       name: { type: String, required: true },
       icon: { type: String, required: true },
     }],
-    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
   },
+  category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
 })) 

@@ -1,12 +1,17 @@
 import path from "node:path"
 
-import { Router } from "express"
+import { RequestHandler, Router } from "express"
 import multer from "multer"
 
 import { listCategories } from "./app/useCases/categories/listCategories"
 import { createCategory } from "./app/useCases/categories/createCategory"
 import { listProducts } from "./app/useCases/products/listProducts"
 import { createProduct } from "./app/useCases/products/createProduct"
+import { listProductsByCategory } from "./app/useCases/categories/listProductsByCategory"
+import { listOrders } from "./app/useCases/orders/listOrders"
+import { createOrder } from "./app/useCases/orders/createOrder"
+import { deleteOrder } from "./app/useCases/orders/deleteOrder"
+import { changeOrderStatus } from "./app/useCases/orders/changeOrderStatus"
 
 export const router = Router()
 
@@ -33,30 +38,18 @@ router.get('/products', listProducts)
 //Create product
 router.post('/products', upload.single('image'), createProduct)
 
-
 //Get product by category
-router.get('/categories/:categoryId/products', (req, res) => {
-  res.json({ message: 'Hello World' })
-})
-
+router.get('/categories/:categoryId/products', listProductsByCategory)
 
 //List orders
-router.get('/orders', (req, res) => {
-  res.json({ message: 'Hello World' })
-})
+router.get('/orders', listOrders)
 
 //Create order
-router.post('/orders', (req, res) => {
-  res.json({ message: 'Hello World' })
-})
+router.post('/orders', createOrder)
 
 //Change order status
-router.patch('/orders/:orderId', (req, res) => {
-  res.json({ message: 'Hello World' })
-})
+router.patch('/orders/:orderId', changeOrderStatus as RequestHandler)
 
 //Delete/cancel order
-router.delete('/orders/:orderId', (req, res) => {
-  res.json({ message: 'Hello World' })
-})
+router.delete('/orders/:orderId', deleteOrder)
 
